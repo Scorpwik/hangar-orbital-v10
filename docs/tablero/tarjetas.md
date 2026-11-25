@@ -6,8 +6,58 @@ Este archivo es la fuente que lee la skill `/tablero` para crear o actualizar el
 
 En «Por hacer», el orden del archivo es la prioridad: la primera tarjeta se implementa primero.
 
-## Spec 04 · Ver las misiones de una nave
+## Spec 08 · Unificar el Botón secundario
 Lista: Por hacer
+
+**Objetivo:** dejar `.boton--secundario` definido una sola vez en `src/`, en el archivo que indica el sistema de diseño, sin cambiar lo que se ve ni lo que hacen los botones.
+**Deuda:** DT-1 (Spec 04, pendiente 2). **Tickets:** T-25 y T-26.
+**Carpeta de la spec:** `docs/specs/08-unificar-boton-secundario/`
+
+### DEBE
+- Definir `.boton--secundario` una sola vez en `src/`, en `src/styles/formularios.css`, justo después de `.boton--primario` y antes de `.boton:disabled`, con los mismos valores que tiene hoy en `misiones.css`.
+- Quitar `.boton--secundario` de `src/styles/misiones.css` junto con su comentario de pendiente.
+- Actualizar la última viñeta de `DESIGN.md` §6.3: la base, el primario y el secundario viven en `formularios.css`, sin «de momento».
+- Anotar en `docs/deuda-tecnica.md` que el ítem del Botón secundario lo cubre esta spec.
+
+### NO DEBE
+- Cambiar ningún `className`, componente, test ni otra regla de CSS.
+- Cambiar el aspecto de ningún botón (incluido el borde del secundario).
+
+### Criterios de aceptación
+- **CA-08.1:** DADO el árbol `src/`, CUANDO se ejecuta `grep -rn ".boton--secundario {" src/`, ENTONCES DEBE devolver una sola línea, en `src/styles/formularios.css`.
+- **CA-08.2:** DADO `formularios.css`, CUANDO se lee el archivo, ENTONCES `.boton--secundario` DEBE estar justo después de `.boton--primario` y antes de `.boton:disabled`.
+- **CA-08.3:** DADO las capturas `antes-misiones` y `antes-formulario` (390 y 1280 px), CUANDO se toman `despues-misiones` y `despues-formulario` con los mismos pasos, ENTONCES se ven idénticas, también el borde de los botones secundarios.
+- **CA-08.4:** DADO los tests existentes, CUANDO se ejecuta `npm test` y `npm run build`, ENTONCES todos los tests pasan sin modificarlos y el build compila.
+- **CA-08.5:** DADO `DESIGN.md` §6.3, CUANDO se lee la última viñeta, ENTONCES dice que la base, el primario y el secundario viven en `formularios.css`, sin la frase «de momento».
+
+### Verificación
+- `npm test` y `npm run build` (sin modificar tests).
+- `grep -rn ".boton--secundario {" src/` debe devolver una sola línea.
+- Con `npm run dev` corriendo:
+
+```
+npm run captura -- 08-unificar-boton-secundario despues-misiones "clic:Ver misiones" "esperar:Titán"
+npm run captura -- 08-unificar-boton-secundario despues-formulario "clic:Ver misiones" "esperar:Titán" "clic:Completar"
+```
+
+- Comparar cada `despues-*` con su `antes-*` (a ojo y, si es posible, byte a byte).
+
+### Tickets y archivos
+| Ticket | Crea | Modifica |
+| --- | --- | --- |
+| T-25 · Mover la regla a `formularios.css` | — | `src/styles/formularios.css`, `src/styles/misiones.css`, `DESIGN.md` (§6.3) |
+| T-26 · Verificar que no cambió lo visible | `docs/specs/08-unificar-boton-secundario/capturas/despues-*.png` | Esta spec (resultados) |
+
+Las capturas `antes-*.png` ya están tomadas; no forman parte de la implementación.
+
+### Resultados
+(La implementación anota aquí la línea base de tests, el grep y la comparación de capturas.)
+
+### Pendientes
+(La implementación anota aquí lo que encuentre fuera de alcance.)
+
+## Spec 04 · Ver las misiones de una nave
+Lista: Hecho
 
 **Historia:** HU-1.4 · Como jefe de hangar, quiero ver las misiones de cada nave, para saber qué tiene asignado antes de darle otra misión.
 **Épica:** E1 · Flota y misiones. **Tickets:** T-15 a T-17.
@@ -62,7 +112,7 @@ Lista: Por hacer
 (La implementación anota aquí lo que encuentre fuera de alcance.)
 
 ## Spec 05 · Registrar una revisión
-Lista: Por hacer
+Lista: Hecho
 
 **Historia:** HU-2.1 · Como jefe de hangar, quiero registrar que una nave pasó revisión, para que pueda volver a recibir misiones.
 **Épica:** E2 · Mantenimiento. **Regla:** R5 (una revisión pone el contador de misiones a cero). **Tickets:** T-18 y T-19.
@@ -104,7 +154,7 @@ Archivo nuevo: `supabase/migraciones/002_registrar_revision.sql`.
 (La implementación anota aquí lo que encuentre fuera de alcance.)
 
 ## Spec 06 · Corregir el combustible
-Lista: Por hacer
+Lista: Hecho
 
 **Historia:** HU-2.2 · Como jefe de hangar, quiero corregir el combustible de una nave, para que su aptitud refleje el nivel real.
 **Épica:** E2 · Mantenimiento. **Regla:** R4 (el combustible se puede corregir en cualquier momento). **Tickets:** T-20 y T-21.
@@ -144,7 +194,7 @@ Archivo nuevo: `supabase/migraciones/003_corregir_combustible.sql`. Permiso para
 (La implementación anota aquí lo que encuentre fuera de alcance.)
 
 ## Spec 07 · Completar una misión
-Lista: Por hacer
+Lista: Hecho
 
 **Historia:** HU-1.5 · Como jefe de hangar, quiero marcar una misión pendiente como completada, para dejar constancia de que la nave volvió y anotar el combustible que le queda.
 **Épica:** E1 · Flota y misiones (con la parte de combustible de E2). **Reglas:** R3 (completar no cambia el contador) y R4 (el combustible restante reemplaza al de la nave). **Tickets:** T-22 a T-24.
