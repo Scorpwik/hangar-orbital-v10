@@ -7,7 +7,7 @@ Este archivo es la fuente que lee la skill `/tablero` para crear o actualizar el
 En «Por hacer», el orden del archivo es la prioridad: la primera tarjeta se implementa primero.
 
 ## Spec 08 · Unificar el Botón secundario
-Lista: Por hacer
+Lista: Hecho
 
 **Objetivo:** dejar `.boton--secundario` definido una sola vez en `src/`, en el archivo que indica el sistema de diseño, sin cambiar lo que se ve ni lo que hacen los botones.
 **Deuda:** DT-1 (Spec 04, pendiente 2). **Tickets:** T-25 y T-26.
@@ -51,10 +51,11 @@ npm run captura -- 08-unificar-boton-secundario despues-formulario "clic:Ver mis
 Las capturas `antes-*.png` ya están tomadas; no forman parte de la implementación.
 
 ### Resultados
-(La implementación anota aquí la línea base de tests, el grep y la comparación de capturas.)
+Ver `docs/specs/08-unificar-boton-secundario.md`. Integrado en `main` (commit `af352cb`).
 
 ### Pendientes
-(La implementación anota aquí lo que encuentre fuera de alcance.)
+1. **Captura en vivo:** repetir los `despues-*` cuando Hangar en Supabase esté accesible.
+2. **Trello:** sincronizar a mano (este entorno no tenía Trello ni `gh` autenticado).
 
 ## Spec 04 · Ver las misiones de una nave
 Lista: Hecho
